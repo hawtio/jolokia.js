@@ -10,5 +10,8 @@
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@types/jquery": "~2.0.46"
   }
 }
