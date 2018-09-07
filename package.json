@@ -1,0 +1,14 @@
+{
+  "name": "jolokia.js",
+  "version": "1.6.0",
+  "description": "Jolokia JavaScript Client",
+  "browser": "jolokia.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hawtio/jolokia.js.git"
+  },
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  }
+}
