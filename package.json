@@ -1,6 +1,6 @@
 {
   "name": "jolokia.js",
-  "version": "1.6.0",
+  "version": "1.6.0-1",
   "description": "Jolokia JavaScript Client",
   "browser": "jolokia.js",
   "repository": {
