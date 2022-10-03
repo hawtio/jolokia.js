@@ -2,7 +2,11 @@
   "name": "jolokia.js",
   "version": "1.6.0-1",
   "description": "Jolokia JavaScript Client",
-  "browser": "jolokia.js",
+  "main": "jolokia.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "jolokia-update": "mvn clean package"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/hawtio/jolokia.js.git"
@@ -12,6 +16,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@types/jquery": "~2.0.46"
+    "@types/jquery": "^3.5.14"
   }
 }

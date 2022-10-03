@@ -1,5 +1,5 @@
 
-(function(){var builder=function(cubism,Jolokia){var VERSION="1.6.0";var ctx_jolokia=function(url,opts){var source={},context=this,j4p=createAgent(url,opts),step=5e3;try
+(function(){var builder=function(cubism,Jolokia){var VERSION="1.7.1";var ctx_jolokia=function(url,opts){var source={},context=this,j4p=createAgent(url,opts),step=5e3;try
 {context.on("start",function(){j4p.start();});context.on("stop",function(){j4p.stop();});}
 catch(err)
 {}
