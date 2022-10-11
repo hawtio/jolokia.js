@@ -134,7 +134,7 @@ export interface IJolokia {
    */
   execute(mbean:string, operation: string, ...arguments:any[]):any;
   search(mBeanPattern:string, opts?:IParams):any;
-  list(path:string, opts?:IParams):any;
+  list(path:string|null, opts?:IParams):any;
   version(opts?:IParams):IVersion;
 
   // scheduler
