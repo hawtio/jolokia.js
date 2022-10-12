@@ -5,19 +5,19 @@ export interface IRequest {
   mbean: string;
   operation?: string;
   attribute?: string | string[];
-  arguments?: Array<any>;
+  arguments?: unknown[];
   path?: string;
 
   // TODO - In case I forgot something
-  [name: string]: any;
+  [name: string]: unknown;
 }
 
 export interface IResponse {
   status: number;
   timestamp: number;
   request: IRequest;
-  value: any;
-  history?: Array<IResponse>;
+  value: unknown;
+  history?: IResponse[];
 }
 
 export interface IErrorResponse extends IResponse {
@@ -48,7 +48,7 @@ export interface IParams {
   ifModifiedSince?: Date;
 
   // TODO - In case I forgot something
-  [name: string]: any;
+  [name: string]: unknown;
 }
 
 export interface IParamsSingle extends IParams {
@@ -56,7 +56,7 @@ export interface IParamsSingle extends IParams {
 }
 
 export interface IParamsBulk extends IParams {
-  success?: Array<(response: IResponse) => void>;
+  success?: ((response: IResponse) => void)[];
 }
 
 export interface IRegisterParams {
@@ -74,11 +74,11 @@ export interface IAgentConfig {
   agentId: string;
   agentType: string;
   serializeException: string;
-  [name: string]: any;
+  [name: string]: unknown;
 }
 
 export interface IExtraInfo {
-  [name: string]: any;
+  [name: string]: unknown;
 }
 
 export interface IAgentInfo {
@@ -98,7 +98,7 @@ export interface IVersion {
 // we'll assume jolokia-simple.js is also being included
 export interface IJolokia {
   // low-level request API
-  request(...args: any[]): any;
+  request(...args: unknown[]): unknown;
 
   // simple API
   /**
@@ -110,21 +110,21 @@ export interface IJolokia {
    * @param {string|IParams} path optional path within the return value. For multi-attribute fetch, the path
    *                              is ignored.
    * @param {IParams} opts options passed to Jolokia.request()
-   * @return {any} the value of the attribute, possibly a complex object
+   * @return {unknown} the value of the attribute, possibly a complex object
    */
-  getAttribute(mbean: string, attribute: string, path?: string | IParams, opts?: IParams): any;
+  getAttribute(mbean: string, attribute: string, path?: string | IParams, opts?: IParams): unknown;
   /**
    * Set an attribute on a MBean.
    *
    * @param {string} mbean objectname of MBean to set
    * @param {string} attribute the attribute to set
-   * @param {any} value the value to set
+   * @param {unknown} value the value to set
    * @param {string|IParams} path an optional <em>inner path</em> which, when given, is used to determine
    *                              an inner object to set the value on
    * @param {IParams} opts additional options passed to Jolokia.request()
-   * @return {any} the previous value
+   * @return {unknown} the previous value
    */
-  setAttribute(mbean: string, attribute: string, value: any, path?: string | IParams, opts?: IParams): any;
+  setAttribute(mbean: string, attribute: string, value: unknown, path?: string | IParams, opts?: IParams): unknown;
 
   /**
    * executes an JMX operation, very last parameter can be an IParams
@@ -133,16 +133,16 @@ export interface IJolokia {
    * @param operation
    * @param arguments
    */
-  execute(mbean: string, operation: string, ...arguments: any[]): any;
-  search(mBeanPattern: string, opts?: IParams): any;
-  list(path: string | null, opts?: IParams): any;
+  execute(mbean: string, operation: string, ...arguments: unknown[]): unknown;
+  search(mBeanPattern: string, opts?: IParams): unknown;
+  list(path: string | null, opts?: IParams): unknown;
   version(opts?: IParams): IVersion;
 
   // scheduler
   register(callback: (...response: IResponse[]) => void, ...request: IRequest[]): number;
   register(params: IRegisterParams, ...request: IRegisterRequest[]): number;
   unregister(handle: number): void;
-  jobs(): Array<number>;
+  jobs(): number[];
   start(period: number): void;
   stop(): void;
   isRunning(): boolean;
@@ -153,7 +153,7 @@ export const Jolokia: {
   new(url?: string): IJolokia;
   (): IJolokia;
 };
-export const cubism: any;
-export const d3: any;
+export const cubism: unknown;
+export const d3: unknown;
 
 export default Jolokia;
