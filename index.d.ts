@@ -6,9 +6,10 @@ export interface IRequest {
   operation?: string;
   attribute?: string | string[];
   arguments?: Array<any>;
-  path?:string;
+  path?: string;
+
   // TODO - In case I forgot something
-  [name:string]: any;
+  [name: string]: any;
 }
 
 export interface IResponse {
@@ -26,7 +27,7 @@ export interface IErrorResponse extends IResponse {
 }
 
 export interface IParams {
-  type?:string;
+  type?: string;
   jsonp?: boolean;
   dataType?: string;
   contentType?: string;
@@ -35,8 +36,8 @@ export interface IParams {
   timeout?: number;
   url?: string;
   method?: string;
-  error?(response:IErrorResponse): void;
-  ajaxError?: (xhr:JQueryXHR, text:string, error:string) => void;
+  error?(response: IErrorResponse): void;
+  ajaxError?: (xhr: JQueryXHR, text: string, error: string) => void;
   maxDepth?: number;
   canonicalProperties?: boolean;
   maxCollectionSize?: number;
@@ -47,25 +48,25 @@ export interface IParams {
   ifModifiedSince?: Date;
 
   // TODO - In case I forgot something
-  [name:string]: any;
+  [name: string]: any;
 }
 
 export interface IParamsSingle extends IParams {
-  success?(response:IResponse): void;
+  success?(response: IResponse): void;
 }
 
 export interface IParamsBulk extends IParams {
-  success?: Array<(response:IResponse) => void>;
+  success?: Array<(response: IResponse) => void>;
 }
 
 export interface IRegisterParams {
-  success?(response:IResponse): void;
-  error?(response:IErrorResponse): void;
-  config?:IParams;
+  success?(response: IResponse): void;
+  error?(response: IErrorResponse): void;
+  config?: IParams;
 }
 
 export interface IRegisterRequest extends IRequest {
-  config?:IParams;
+  config?: IParams;
 }
 
 export interface IAgentConfig {
@@ -73,15 +74,15 @@ export interface IAgentConfig {
   agentId: string;
   agentType: string;
   serializeException: string;
-  [name:string]: any;
+  [name: string]: any;
 }
 
 export interface IExtraInfo {
-  [name:string]: any;
+  [name: string]: any;
 }
 
 export interface IAgentInfo {
-  product:string;
+  product: string;
   vendor: string;
   version: string;
   extraInfo: IExtraInfo;
@@ -97,7 +98,7 @@ export interface IVersion {
 // we'll assume jolokia-simple.js is also being included
 export interface IJolokia {
   // low-level request API
-  request(...args:any[]):any;
+  request(...args: any[]): any;
 
   // simple API
   /**
@@ -111,7 +112,7 @@ export interface IJolokia {
    * @param {IParams} opts options passed to Jolokia.request()
    * @return {any} the value of the attribute, possibly a complex object
    */
-  getAttribute(mbean:string, attribute:string, path?:string|IParams, opts?:IParams):any;
+  getAttribute(mbean: string, attribute: string, path?: string | IParams, opts?: IParams): any;
   /**
    * Set an attribute on a MBean.
    *
@@ -123,7 +124,7 @@ export interface IJolokia {
    * @param {IParams} opts additional options passed to Jolokia.request()
    * @return {any} the previous value
    */
-  setAttribute(mbean:string, attribute:string, value:any, path?:string|IParams, opts?:IParams):any;
+  setAttribute(mbean: string, attribute: string, value: any, path?: string | IParams, opts?: IParams): any;
 
   /**
    * executes an JMX operation, very last parameter can be an IParams
@@ -132,26 +133,27 @@ export interface IJolokia {
    * @param operation
    * @param arguments
    */
-  execute(mbean:string, operation: string, ...arguments:any[]):any;
-  search(mBeanPattern:string, opts?:IParams):any;
-  list(path:string|null, opts?:IParams):any;
-  version(opts?:IParams):IVersion;
+  execute(mbean: string, operation: string, ...arguments: any[]): any;
+  search(mBeanPattern: string, opts?: IParams): any;
+  list(path: string | null, opts?: IParams): any;
+  version(opts?: IParams): IVersion;
 
   // scheduler
-  register(callback: (...response:IResponse[]) => void, ...request:IRequest[]): number;
-  register(params:IRegisterParams, ...request:IRegisterRequest[]): number;
-  unregister(handle:number): void;
-  jobs():Array<number>;
-  start(period:number):void;
-  stop():void;
-  isRunning():boolean;
+  register(callback: (...response: IResponse[]) => void, ...request: IRequest[]): number;
+  register(params: IRegisterParams, ...request: IRegisterRequest[]): number;
+  unregister(handle: number): void;
+  jobs(): Array<number>;
+  start(period: number): void;
+  stop(): void;
+  isRunning(): boolean;
 }
 
-const Jolokia: {
+export const Jolokia: {
   new(opts?: IParams): IJolokia;
   new(url?: string): IJolokia;
   (): IJolokia;
 };
-export default Jolokia;
 export const cubism: any;
 export const d3: any;
+
+export default Jolokia;
