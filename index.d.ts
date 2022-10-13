@@ -26,6 +26,12 @@ export interface IErrorResponse extends IResponse {
   stacktrace: string;
 }
 
+export type IResponseFn = (response: IResponse) => void;
+
+export type IErrorResponseFn = (response: IErrorResponse) => void;
+
+export type IAjaxErrorFn = (xhr: JQueryXHR, text: string, error: string) => void;
+
 export interface IParams {
   type?: string;
   jsonp?: boolean;
@@ -36,8 +42,8 @@ export interface IParams {
   timeout?: number;
   url?: string;
   method?: string;
-  error?(response: IErrorResponse): void;
-  ajaxError?: (xhr: JQueryXHR, text: string, error: string) => void;
+  error?: IErrorResponseFn;
+  ajaxError?: IAjaxErrorFn;
   maxDepth?: number;
   canonicalProperties?: boolean;
   maxCollectionSize?: number;
@@ -52,16 +58,16 @@ export interface IParams {
 }
 
 export interface IParamsSingle extends IParams {
-  success?(response: IResponse): void;
+  success?: IResponseFn;
 }
 
 export interface IParamsBulk extends IParams {
-  success?: ((response: IResponse) => void)[];
+  success?: IResponseFn[];
 }
 
 export interface IRegisterParams {
-  success?(response: IResponse): void;
-  error?(response: IErrorResponse): void;
+  success?: IResponseFn;
+  error?: IErrorResponseFn;
   config?: IParams;
 }
 
