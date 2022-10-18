@@ -1,5 +1,73 @@
 /// <reference types="jquery"/>
 
+/**
+ * The top level object returned from a 'list' operation.
+ */
+export type IJmxDomains = {
+  [domainName: string]: IJmxDomain;
+};
+
+/**
+ * Individual JMX domain, MBean names are stored as keys.
+ */
+export type IJmxDomain = {
+  [mbeanName: string]: IJmxMBean;
+};
+
+/**
+ * JMX MBean object that contains the operations/attributes.
+ */
+export interface IJmxMBean {
+  op: IJmxOperations;
+  attr: IJmxAttributes;
+  desc: string;
+  canInvoke?: boolean;
+}
+
+/**
+ * JMX MBean attributes, attribute name is the key.
+ */
+export type IJmxAttributes = {
+  [attributeName: string]: IJmxAttribute;
+};
+
+/**
+ * JMX attribute object that contains the type, description and if it's read/write
+ * or not.
+ */
+export interface IJmxAttribute {
+  desc: string;
+  rw: boolean;
+  type: string;
+  canInvoke?: boolean;
+}
+
+/**
+ * JMX operation object that's a map of the operation name to the operation schema.
+ */
+export type IJmxOperations = {
+  [methodName: string]: IJmxOperation;
+};
+
+/**
+ * Schema for a JMX operation object.
+ */
+export interface IJmxOperation {
+  args: IJmxOperationArgument[];
+  desc: string;
+  ret: string;
+  canInvoke?: boolean;
+}
+
+/**
+ * Operation arguments are stored in a map of argument name -> type.
+ */
+export interface IJmxOperationArgument {
+  name: string;
+  desc: string;
+  type: string;
+}
+
 export interface IRequest {
   type: string;
   mbean: string;
@@ -104,7 +172,7 @@ export interface IVersion {
 // we'll assume jolokia-simple.js is also being included
 export interface IJolokia {
   // low-level request API
-  request(...args: unknown[]): unknown;
+  request(...args: unknown[]): unknown | null;
 
   // simple API
   /**
@@ -116,9 +184,9 @@ export interface IJolokia {
    * @param {string|IParams} path optional path within the return value. For multi-attribute fetch, the path
    *                              is ignored.
    * @param {IParams} opts options passed to Jolokia.request()
-   * @return {unknown} the value of the attribute, possibly a complex object
+   * @return {unknown | null} the value of the attribute, possibly a complex object
    */
-  getAttribute(mbean: string, attribute: string, path?: string | IParams, opts?: IParams): unknown;
+  getAttribute(mbean: string, attribute: string, path?: string | IParams, opts?: IParams): unknown | null;
   /**
    * Set an attribute on a MBean.
    *
@@ -128,9 +196,9 @@ export interface IJolokia {
    * @param {string|IParams} path an optional <em>inner path</em> which, when given, is used to determine
    *                              an inner object to set the value on
    * @param {IParams} opts additional options passed to Jolokia.request()
-   * @return {unknown} the previous value
+   * @return {unknown | null} the previous value
    */
-  setAttribute(mbean: string, attribute: string, value: unknown, path?: string | IParams, opts?: IParams): unknown;
+  setAttribute(mbean: string, attribute: string, value: unknown, path?: string | IParams, opts?: IParams): unknown | null;
 
   /**
    * executes an JMX operation, very last parameter can be an IParams
@@ -139,10 +207,10 @@ export interface IJolokia {
    * @param operation
    * @param arguments
    */
-  execute(mbean: string, operation: string, ...arguments: unknown[]): unknown;
-  search(mBeanPattern: string, opts?: IParams): unknown;
-  list(path: string | null, opts?: IParams): unknown;
-  version(opts?: IParams): IVersion;
+  execute(mbean: string, operation: string, ...arguments: unknown[]): unknown | null;
+  search(mBeanPattern: string, opts?: IParams): unknown | null;
+  list(path: string | null, opts?: IParams): IJmxDomains | null;
+  version(opts?: IParams): IVersion | null;
 
   // scheduler
   register(callback: (...response: IResponse[]) => void, ...request: IRequest[]): number;
