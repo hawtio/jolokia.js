@@ -8,10 +8,10 @@ export type IJmxDomains = {
 };
 
 /**
- * Individual JMX domain, MBean names are stored as keys.
+ * Individual JMX domain, MBean property lists are stored as keys.
  */
 export type IJmxDomain = {
-  [mbeanName: string]: IJmxMBean;
+  [propertyList: string]: IJmxMBean;
 };
 
 /**
@@ -176,7 +176,7 @@ export interface ISearchOptions extends IOptionsBase {
   success?: ISearchResponseFn;
 }
 
-export type IListResponseFn = (value: IJmxDomains) => void;
+export type IListResponseFn = (value: IJmxDomains | IJmxDomain | IJmxMBean) => void;
 
 /**
  * Request options used for the LIST simple API.
