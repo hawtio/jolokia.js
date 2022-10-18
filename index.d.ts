@@ -94,10 +94,7 @@ export interface IErrorResponse extends IResponse {
   stacktrace: string;
 }
 
-export type IResponseFn = (response: IResponse) => void;
-
 export type IErrorResponseFn = (response: IErrorResponse) => void;
-
 export type IAjaxErrorFn = (xhr: JQueryXHR, text: string, error: string) => void;
 
 /**
@@ -145,6 +142,8 @@ export interface IOptionsBase extends IParams {
   [name: string]: unknown;
 }
 
+export type IResponseFn = (response: IResponse) => void;
+
 /**
  * Request options of a single request used for the low-level request API.
  */
@@ -159,32 +158,40 @@ export interface IBulkOptions extends IOptionsBase {
   success?: IResponseFn[];
 }
 
+export type ISimpleResponseFn = (value: unknown) => void;
+
 /**
- * Request options used for the simple API.
+ * Request options used for the READ/WRITE/EXEC simple API.
  */
 export interface ISimpleOptions extends IOptionsBase {
-  success?: (value: unknown) => void;
+  success?: ISimpleResponseFn;
 }
+
+export type ISearchResponseFn = (value: string[]) => void;
 
 /**
  * Request options used for the SEARCH simple API.
  */
 export interface ISearchOptions extends IOptionsBase {
-  success?: (value: string[]) => void;
+  success?: ISearchResponseFn;
 }
+
+export type IListResponseFn = (value: IJmxDomains) => void;
 
 /**
  * Request options used for the LIST simple API.
  */
 export interface IListOptions extends IOptionsBase {
-  success?: (value: IJmxDomains) => void;
+  success?: IListResponseFn;
 }
+
+export type IVersionResponseFn = (value: IVersion) => void;
 
 /**
  * Request options used for the VERSION simple API.
  */
 export interface IVersionOptions extends IOptionsBase {
-  success?: (value: IVersion) => void;
+  success?: IVersionResponseFn;
 }
 
 export interface IRegisterParams {
