@@ -276,7 +276,7 @@
     (function (root, factory) {
         if (typeof define === 'function' && define.amd) {
             // AMD. Register as a named module
-            define(["jquery","jolokia"], factory);
+            define(["jquery","./jolokia"], factory);
         } else {
             if (root.Jolokia) {
                 builder(jQuery,root.Jolokia);

@@ -260,7 +260,7 @@
     (function (root) {
         if (typeof define === 'function' && define.amd) {
             // AMD. Register as a named module
-            define(["cubism","jolokia"],function (cubism,Jolokia) {
+            define(["cubism","./jolokia"],function (cubism,Jolokia) {
                 return builder(cubism,Jolokia);
             });
         } else {
