@@ -17,5 +17,6 @@
   },
   "dependencies": {
     "@types/jquery": "^3.5.14"
-  }
+  },
+  "packageManager": "yarn@3.2.4"
 }
