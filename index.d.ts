@@ -18,9 +18,9 @@ export type IJmxDomain = {
  * JMX MBean object that contains the operations/attributes.
  */
 export interface IJmxMBean {
-  op: IJmxOperations;
-  attr: IJmxAttributes;
   desc: string;
+  attr: IJmxAttributes;
+  op: IJmxOperations;
   canInvoke?: boolean;
 }
 
@@ -37,8 +37,8 @@ export type IJmxAttributes = {
  */
 export interface IJmxAttribute {
   desc: string;
-  rw: boolean;
   type: string;
+  rw: boolean;
   canInvoke?: boolean;
 }
 
@@ -46,15 +46,15 @@ export interface IJmxAttribute {
  * JMX operation object that's a map of the operation name to the operation schema.
  */
 export type IJmxOperations = {
-  [methodName: string]: IJmxOperation;
+  [methodName: string]: IJmxOperation | JmxOperation[];
 };
 
 /**
  * Schema for a JMX operation object.
  */
 export interface IJmxOperation {
-  args: IJmxOperationArgument[];
   desc: string;
+  args: IJmxOperationArgument[];
   ret: string;
   canInvoke?: boolean;
 }
@@ -63,8 +63,8 @@ export interface IJmxOperation {
  * Operation arguments are stored in a map of argument name -> type.
  */
 export interface IJmxOperationArgument {
-  name: string;
   desc: string;
+  name: string;
   type: string;
 }
 
