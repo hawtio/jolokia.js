@@ -1,6 +1,6 @@
 {
   "name": "jolokia.js",
-  "version": "1.7.1-6",
+  "version": "1.7.2",
   "description": "Jolokia JavaScript Client",
   "main": "jolokia.js",
   "types": "index.d.ts",
@@ -18,6 +18,5 @@
   "dependencies": {
     "@types/jquery": "^3.5.14"
   },
-  "packageManager": "yarn@3.3.1",
-  "stableVersion": "1.7.1-5"
+  "packageManager": "yarn@3.3.1"
 }
