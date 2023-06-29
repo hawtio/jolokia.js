@@ -1,6 +1,6 @@
 {
   "name": "jolokia.js",
-  "version": "1.7.2",
+  "version": "1.7.3-1",
   "description": "Jolokia JavaScript Client",
   "main": "jolokia.js",
   "types": "index.d.ts",
