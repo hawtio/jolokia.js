@@ -19,8 +19,8 @@ export type IJmxDomain = {
  */
 export interface IJmxMBean {
   desc: string;
-  attr: IJmxAttributes;
-  op: IJmxOperations;
+  attr?: IJmxAttributes;
+  op?: IJmxOperations;
   canInvoke?: boolean;
 }
 
