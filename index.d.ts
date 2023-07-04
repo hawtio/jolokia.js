@@ -46,7 +46,7 @@ export interface IJmxAttribute {
  * JMX operation object that's a map of the operation name to the operation schema.
  */
 export type IJmxOperations = {
-  [methodName: string]: IJmxOperation | JmxOperation[];
+  [methodName: string]: IJmxOperation | IJmxOperation[];
 };
 
 /**
